@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gabarito de Respostas</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header>
+    <h1>Gabarito de Respostas</h1>
+    <p>Selecione uma alternativa para cada questão (1 a 65)</p>
+  </header>
+
+  <main class="container">
+    <form id="gabarito-form">
+
+      <!-- Português -->
+      <fieldset class="materia">
+        <legend>Português (Questões 1 a 5)</legend>
+        <div class="questoes-grid" id="materia-portugues"></div>
+      </fieldset>
+
+      <!-- Inglês -->
+      <fieldset class="materia">
+        <legend>Inglês (Questões 6 a 10)</legend>
+        <div class="questoes-grid" id="materia-ingles"></div>
+      </fieldset>
+
+      <!-- Educação Física -->
+      <fieldset class="materia">
+        <legend>Educação Física (Questões 11 a 15)</legend>
+        <div class="questoes-grid" id="materia-ed-fisica"></div>
+      </fieldset>
+
+      <!-- Artes -->
+      <fieldset class="materia">
+        <legend>Artes (Questões 16 a 20)</legend>
+        <div class="questoes-grid" id="materia-artes"></div>
+      </fieldset>
+
+      <!-- Matemática -->
+      <fieldset class="materia">
+        <legend>Matemática (Questões 21 a 25)</legend>
+        <div class="questoes-grid" id="materia-matematica"></div>
+      </fieldset>
+
+      <!-- Biologia -->
+      <fieldset class="materia">
+        <legend>Biologia (Questões 26 a 30)</legend>
+        <div class="questoes-grid" id="materia-biologia"></div>
+      </fieldset>
+
+      <!-- Física -->
+      <fieldset class="materia">
+        <legend>Física (Questões 31 a 35)</legend>
+        <div class="questoes-grid" id="materia-fisica"></div>
+      </fieldset>
+
+      <!-- Química -->
+      <fieldset class="materia">
+        <legend>Química (Questões 36 a 40)</legend>
+        <div class="questoes-grid" id="materia-quimica"></div>
+      </fieldset>
+
+      <!-- História -->
+      <fieldset class="materia">
+        <legend>História (Questões 41 a 45)</legend>
+        <div class="questoes-grid" id="materia-historia"></div>
+      </fieldset>
+
+      <!-- Geografia -->
+      <fieldset class="materia">
+        <legend>Geografia (Questões 46 a 50)</legend>
+        <div class="questoes-grid" id="materia-geografia"></div>
+      </fieldset>
+
+      <!-- Sociologia -->
+      <fieldset class="materia">
+        <legend>Sociologia (Questões 51 a 55)</legend>
+        <div class="questoes-grid" id="materia-sociologia"></div>
+      </fieldset>
+
+      <!-- Filosofia -->
+      <fieldset class="materia">
+        <legend>Filosofia (Questões 56 a 60)</legend>
+        <div class="questoes-grid" id="materia-filosofia"></div>
+      </fieldset>
+
+      <!-- Informática -->
+      <fieldset class="materia">
+        <legend>Informática (Questões 61 a 65)</legend>
+        <div class="questoes-grid" id="materia-informatica"></div>
+      </fieldset>
+
+      <button type="button" onclick="finalizarGabarito()">Enviar Gabarito</button>
+    </form>
+  </main>
+
+  <script>
+    // Configuração das matérias e intervalos de questões
+    const materiasConfig = [
+      { id: 'materia-portugues', inicio: 1, fim: 5 },
+      { id: 'materia-ingles', inicio: 6, fim: 10 },
+      { id: 'materia-ed-fisica', inicio: 11, fim: 15 },
+      { id: 'materia-artes', inicio: 16, fim: 20 },
+      { id: 'materia-matematica', inicio: 21, fim: 25 },
+      { id: 'materia-biologia', inicio: 26, fim: 30 },
+      { id: 'materia-fisica', inicio: 31, fim: 35 },
+      { id: 'materia-quimica', inicio: 36, fim: 40 },
+      { id: 'materia-historia', inicio: 41, fim: 45 },
+      { id: 'materia-geografia', inicio: 46, fim: 50 },
+      { id: 'materia-sociologia', inicio: 51, fim: 55 },
+      { id: 'materia-filosofia', inicio: 56, fim: 60 },
+      { id: 'materia-informatica', inicio: 61, fim: 65 }
+    ];
+
+    const opcoes = ['A', 'B', 'C', 'D', 'E'];
+
+    // Renderiza dinamicamente as questões para evitar repetição no HTML
+    materiasConfig.forEach(materia => {
+      const container = document.getElementById(materia.id);
+      for (let q = materia.inicio; q <= materia.fim; q++) {
+        const questaoDiv = document.createElement('div');
+        questaoDiv.className = 'questao';
+
+        let optionsHtml = `<span class="numero-questao">${q}.</span>`;
+        opcoes.forEach(opcao => {
+          optionsHtml += `
+            <label class="opcao">
+              <input type="radio" name="q${q}" value="${opcao}">
+              <span>${opcao}</span>
+            </label>
+          `;
+        });
+
+        questaoDiv.innerHTML = optionsHtml;
+        container.appendChild(questaoDiv);
+      }
+    });
+
+    function finalizarGabarito() {
+      const respostas = {};
+      let totalPreenchido = 0;
+
+      for (let i = 1; i <= 65; i++) {
+        const selecionada = document.querySelector(`input[name="q${i}"]:checked`);
+        if (selecionada) {
+          respostas[`Q${i}`] = selecionada.value;
+          totalPreenchido++;
+        } else {
+          respostas[`Q${i}`] = 'Não respondida';
+        }
+      }
+
+      alert(`Gabarito enviado com sucesso!\nTotal de questões respondidas: ${totalPreenchido} de 65.`);
+      console.log('Respostas do usuário:', respostas);
+    }
+  </script>
+</body>
+</html>
